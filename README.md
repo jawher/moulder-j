@@ -56,10 +56,12 @@ This moulder based snippet:
     Document doc = Jsoup.parse(HTML);
     MoulderShop m = new MoulderShop();
     
-    m.register("h1", repeat(Arrays.asList("Spring", "Summer", "Autumn",
-    		"Winter")),
+    m.register("h1", 
+    		repeat(Arrays.asList("Spring", "Summer", "Autumn", "Winter")),
     		attr("class", new Values<String>("even", "odd").cycle()),
-    		text(new ElementDataValue<String>()), append("<p>content</p>"));
+    		text(new ElementDataValue<String>()),
+    		append("<p>content</p>")
+    	      );
     
     m.process(doc);
 
