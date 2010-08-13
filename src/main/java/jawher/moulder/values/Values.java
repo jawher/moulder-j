@@ -9,16 +9,24 @@ import java.util.NoSuchElementException;
 import jawher.moulder.ElementAndData;
 import jawher.moulder.Value;
 
+/**
+ * A value that sequentially generates the items it was supplied with
+ * 
+ * @author jawher
+ * 
+ * @param <T>
+ *            the resulting values type
+ */
 public class Values<T> implements Value<T> {
 	private Iterator<T> values;
-
-	public Values(Iterable<T> values) {
-		this.values = values.iterator();
-	}
 
 	public Values(Iterator<T> values) {
 		super();
 		this.values = values;
+	}
+
+	public Values(Iterable<T> values) {
+		this.values = values.iterator();
 	}
 
 	public Values(T... values) {

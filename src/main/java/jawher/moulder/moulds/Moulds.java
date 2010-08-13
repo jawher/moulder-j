@@ -5,6 +5,12 @@ import jawher.moulder.values.SimpleValue;
 
 import org.jsoup.nodes.Node;
 
+/**
+ * A class with a bunch of static factory methods to common moulders
+ * 
+ * @author jawher
+ * 
+ */
 public class Moulds {
 	public static Appender append(Value<Iterable<Node>> html) {
 		return new Appender(html);
@@ -49,7 +55,7 @@ public class Moulds {
 	public static <T> Repeater<T> repeat(Iterable<T> items) {
 		return new Repeater<T>(new SimpleValue<Iterable<T>>(items));
 	}
-	
+
 	public static <T> Repeater<T> repeat(Value<Iterable<T>> items) {
 		return new Repeater<T>(items);
 	}

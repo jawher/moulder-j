@@ -9,6 +9,12 @@ import jawher.moulder.Value;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Node;
 
+/**
+ * A value that parses a supplied html string
+ * 
+ * @author jawher
+ * 
+ */
 public class HtmlValue implements Value<Iterable<Node>> {
 	private Value<String> html;
 

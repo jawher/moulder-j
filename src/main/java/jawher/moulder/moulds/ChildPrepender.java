@@ -5,23 +5,40 @@ import java.util.Collections;
 import java.util.List;
 
 import jawher.moulder.ElementAndData;
+import jawher.moulder.Moulder;
 import jawher.moulder.MoulderUtils;
 import jawher.moulder.NodeAndData;
-import jawher.moulder.Moulder;
 import jawher.moulder.Value;
 import jawher.moulder.values.HtmlValue;
 
-import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 
+/**
+ * A moulder that prepends content to its input element's children
+ * 
+ * @author jawher
+ * 
+ */
 public class ChildPrepender implements Moulder {
 	private Value<Iterable<Node>> content;
 
+	/**
+	 * 
+	 * @param content
+	 *            the nodes that are to be prepended to the input element's
+	 *            children.
+	 */
 	public ChildPrepender(Value<Iterable<Node>> content) {
 		super();
 		this.content = content;
 	}
 
+	/**
+	 * a convenience version of the {@link #ChildPrepender(Value)} constructor
+	 * that parses the supplied <code>html</code> string.
+	 * 
+	 * @param html
+	 */
 	public ChildPrepender(String html) {
 		this(new HtmlValue(html));
 	}
@@ -31,7 +48,7 @@ public class ChildPrepender implements Moulder {
 		List<NodeAndData> res = new ArrayList<NodeAndData>();
 		Iterable<Node> nodes = content.get();
 		List<Node> reversed = new ArrayList<Node>();
-		for(Node n: nodes){
+		for (Node n : nodes) {
 			reversed.add(n);
 		}
 		Collections.reverse(reversed);
