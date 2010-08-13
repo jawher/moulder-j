@@ -12,6 +12,7 @@ import jawher.moulder.ElementAndData;
 import jawher.moulder.MoulderUtils;
 import jawher.moulder.NodeAndData;
 import jawher.moulder.Value;
+import jawher.moulder.values.SimpleValue;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -44,7 +45,7 @@ public class TexterTest extends BaseMoulderTest {
 		assertXMLEqual(new StringReader("<body><outer>text</outer></body>"),
 				new StringReader(html(processed)));
 	}
-	
+
 	@Test
 	public void testSpecialChars() throws Exception {
 		Value<String> text = mock(Value.class);
@@ -64,7 +65,9 @@ public class TexterTest extends BaseMoulderTest {
 		inOrder.verify(text).bind(nd);
 		inOrder.verify(text).get();
 
-		assertXMLEqual(new StringReader("<body><outer>text&lt;e a='v'&gt;hello &amp; welcome&lt;</outer></body>"),
+		assertXMLEqual(
+				new StringReader(
+						"<body><outer>text&lt;e a='v'&gt;hello &amp; welcome&lt;</outer></body>"),
 				new StringReader(html(processed)));
 	}
 
