@@ -1,9 +1,7 @@
 package jawher.moulder.values;
 
-import jawher.moulder.NodeAndData;
+import jawher.moulder.ElementAndData;
 import jawher.moulder.Value;
-
-import org.jsoup.nodes.Element;
 
 public class ElementDataValue<T> implements Value<T> {
 	private T data;
@@ -12,7 +10,7 @@ public class ElementDataValue<T> implements Value<T> {
 		return data;
 	}
 
-	public void bind(NodeAndData<Element> nd) {
+	public void bind(ElementAndData nd) {
 		data = (T) nd.data;
 	}
 

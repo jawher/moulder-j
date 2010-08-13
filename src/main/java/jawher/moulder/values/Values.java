@@ -6,10 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import jawher.moulder.NodeAndData;
+import jawher.moulder.ElementAndData;
 import jawher.moulder.Value;
-
-import org.jsoup.nodes.Element;
 
 public class Values<T> implements Value<T> {
 	private Iterator<T> values;
@@ -35,7 +33,7 @@ public class Values<T> implements Value<T> {
 		return new Values<T>(new CyclingIterator<T>(values));
 	}
 
-	public void bind(NodeAndData<Element> nd) {
+	public void bind(ElementAndData nd) {
 
 	}
 

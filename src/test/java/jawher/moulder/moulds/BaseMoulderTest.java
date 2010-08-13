@@ -21,10 +21,15 @@ public abstract class BaseMoulderTest {
 		Document d = Jsoup.parseBodyFragment(s);		
 		return new ArrayList<Node>(d.body().childNodes());
 	}
+	
+	public static Node parseNode(String s) {
+		Document d = Jsoup.parseBodyFragment(s);		
+		return d.body().childNode(0);
+	}
 
-	public static String html(List<NodeAndData<? extends Node>> nodes) {
+	public static String html(List<NodeAndData> nodes) {
 		StringBuilder res = new StringBuilder("<body>");
-		for (NodeAndData<? extends Node> nodeAndData : nodes) {
+		for (NodeAndData nodeAndData : nodes) {
 			res.append(nodeAndData.node.outerHtml());
 		}
 		res.append("</body>");

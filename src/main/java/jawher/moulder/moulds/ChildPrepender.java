@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import jawher.moulder.ElementAndData;
 import jawher.moulder.MoulderUtils;
 import jawher.moulder.NodeAndData;
 import jawher.moulder.Moulder;
@@ -25,10 +26,9 @@ public class ChildPrepender implements Moulder {
 		this(new HtmlValue(html));
 	}
 
-	public List<NodeAndData<? extends Node>> process(NodeAndData<Element> nd,
-			MoulderUtils f) {
+	public List<NodeAndData> process(ElementAndData nd, MoulderUtils f) {
 		content.bind(nd);
-		List<NodeAndData<? extends Node>> res = new ArrayList<NodeAndData<? extends Node>>();
+		List<NodeAndData> res = new ArrayList<NodeAndData>();
 		Iterable<Node> nodes = content.get();
 		List<Node> reversed = new ArrayList<Node>();
 		for(Node n: nodes){
@@ -38,7 +38,7 @@ public class ChildPrepender implements Moulder {
 		for (Node n : reversed) {
 			nd.node.prependChild(n);
 		}
-		res.add(nd);
+		res.add(nd.toNodeAndData());
 		return res;
 	}
 

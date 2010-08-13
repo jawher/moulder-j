@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import jawher.moulder.ElementAndData;
 import jawher.moulder.MoulderUtils;
 import jawher.moulder.NodeAndData;
 import jawher.moulder.Moulder;
@@ -20,12 +21,12 @@ public class Repeater<T> implements Moulder {
 		this.items = items;		
 	}
 
-	public List<NodeAndData<? extends Node>> process(NodeAndData<Element> nd, MoulderUtils f) {
+	public List<NodeAndData> process(ElementAndData nd, MoulderUtils f) {
 		items.bind(nd);
 		Iterator<T> it = items.get().iterator();
-		List<NodeAndData<? extends Node>> res = new ArrayList<NodeAndData<? extends Node>>();
+		List<NodeAndData> res = new ArrayList<NodeAndData>();
 		while(it.hasNext()){
-			res.add(new NodeAndData<Node>(f.copy(nd.node), it.next()));
+			res.add(new NodeAndData(f.copy(nd.node), it.next()));
 		}
 		return res;
 	}

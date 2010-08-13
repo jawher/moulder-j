@@ -37,17 +37,17 @@ public class MoulderShop {
 		for (TemplatorConfig c : cfg) {
 			Elements elements = doc.select(c.selector);
 			for (Element e : elements) {
-				List<NodeAndData<Node>> oes = Arrays
-						.asList(new NodeAndData<Node>(e));
+				List<NodeAndData> oes = Arrays
+						.asList(new NodeAndData(e));
 				for (Moulder templator : c.templators) {
-					List<NodeAndData<Node>> tes = new ArrayList<NodeAndData<Node>>();
-					for (NodeAndData<Node> oe : oes) {
+					List<NodeAndData> tes = new ArrayList<NodeAndData>();
+					for (NodeAndData oe : oes) {
 						if (oe.node instanceof Element) {
-							List<NodeAndData<? extends Node>> processed = templator
-									.process(new NodeAndData<Element>(
+							List<NodeAndData> processed = templator
+									.process(new ElementAndData(
 											(Element) oe.node, oe.data), factory);
-							for (NodeAndData<? extends Node> processedNode : processed) {
-								tes.add(new NodeAndData<Node>(
+							for (NodeAndData processedNode : processed) {
+								tes.add(new NodeAndData(
 										processedNode.node, processedNode.data));
 							}
 						} else {
@@ -58,7 +58,7 @@ public class MoulderShop {
 					oes = tes;
 				}
 				// replace e with oes
-				for (NodeAndData<Node> oe : oes) {
+				for (NodeAndData oe : oes) {
 					e.before(oe.node.outerHtml());
 				}
 

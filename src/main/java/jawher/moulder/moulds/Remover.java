@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import jawher.moulder.ElementAndData;
 import jawher.moulder.MoulderUtils;
 import jawher.moulder.NodeAndData;
 import jawher.moulder.Moulder;
@@ -25,14 +26,13 @@ public class Remover implements Moulder {
 		this.remove = remove;
 	}
 
-	public List<NodeAndData<? extends Node>> process(NodeAndData<Element> nd,
-			MoulderUtils f) {
+	public List<NodeAndData> process(ElementAndData nd, MoulderUtils f) {
 		remove.bind(nd);
 		if (remove.get()) {
 			return Collections.EMPTY_LIST;
 		} else {
-			List<NodeAndData<? extends Node>> res = new ArrayList<NodeAndData<? extends Node>>();
-			res.add(nd);
+			List<NodeAndData> res = new ArrayList<NodeAndData>();
+			res.add(nd.toNodeAndData());
 			return res;
 		}
 	}

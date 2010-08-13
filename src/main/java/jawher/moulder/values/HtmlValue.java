@@ -1,14 +1,12 @@
 package jawher.moulder.values;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import jawher.moulder.NodeAndData;
+import jawher.moulder.ElementAndData;
 import jawher.moulder.Value;
 
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 
 public class HtmlValue implements Value<Iterable<Node>> {
@@ -30,7 +28,7 @@ public class HtmlValue implements Value<Iterable<Node>> {
 		return copy;
 	}
 
-	public void bind(NodeAndData<Element> nd) {
+	public void bind(ElementAndData nd) {
 		html.bind(nd);
 	}
 

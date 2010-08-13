@@ -1,21 +1,25 @@
 package jawher.moulder;
 
-import org.jsoup.nodes.Node;
+import org.jsoup.nodes.Element;
 
-public class NodeAndData {
-	public final Node node;
+public class ElementAndData {
+	public final Element node;
 	public final Object data;
 
-	public NodeAndData(Node node, Object data) {
+	public ElementAndData(Element node, Object data) {
 		super();
 		this.node = node;
 		this.data = data;
 	}
 
-	public NodeAndData(Node node) {
+	public ElementAndData(Element node) {
 		super();
 		this.node = node;
 		this.data = null;
+	}
+
+	public NodeAndData toNodeAndData() {
+		return new NodeAndData(node, data);
 	}
 
 	@Override
@@ -35,7 +39,7 @@ public class NodeAndData {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		NodeAndData other = (NodeAndData) obj;
+		ElementAndData other = (ElementAndData) obj;
 		if (data == null) {
 			if (other.data != null)
 				return false;
@@ -51,7 +55,7 @@ public class NodeAndData {
 
 	@Override
 	public String toString() {
-		return "NodeAndData [node=" + node + ", data=" + data + "]";
+		return "ElementAndData [node=" + node + ", data=" + data + "]";
 	}
 
 }

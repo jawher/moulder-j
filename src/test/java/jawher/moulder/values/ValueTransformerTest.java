@@ -1,6 +1,7 @@
 package jawher.moulder.values;
 
 import static org.mockito.Mockito.*;
+import jawher.moulder.ElementAndData;
 import jawher.moulder.NodeAndData;
 import jawher.moulder.Value;
 import static org.junit.Assert.*;
@@ -37,7 +38,7 @@ public class ValueTransformerTest {
 				return s.length();
 			}
 		};
-		NodeAndData<Element> nd = new NodeAndData<Element>(null, "data");
+		ElementAndData nd = new ElementAndData(null, "data");
 		vt.bind(nd);
 		verify(v).bind(nd);		
 	}

@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import jawher.moulder.ElementAndData;
 import jawher.moulder.MoulderUtils;
 import jawher.moulder.NodeAndData;
 import jawher.moulder.Value;
@@ -36,9 +37,9 @@ public class RepeaterTest extends BaseMoulderTest {
 		MoulderUtils mu = new MoulderUtils(document);
 		Element element = document.getElementsByTag("outer").first();
 
-		NodeAndData<Element> nd = new NodeAndData<Element>(element, "data");
-		List<NodeAndData<? extends Node>> processed = a.process(nd, mu);
-
+		ElementAndData nd = new ElementAndData(element, "data");
+		List<NodeAndData> processed = a.process(nd, mu);
+		
 		// verify that bind and get were called, in this order
 		InOrder inOrder = inOrder(content);
 		inOrder.verify(content).bind(nd);
@@ -52,7 +53,7 @@ public class RepeaterTest extends BaseMoulderTest {
 		
 		// check for the produced nodes data
 		Iterator<String> it = items.iterator();
-		for (NodeAndData<? extends Node> nodeAndData : processed) {
+		for (NodeAndData nodeAndData : processed) {
 			assertTrue(it.hasNext());
 			assertEquals(it.next(), nodeAndData.data);
 		}

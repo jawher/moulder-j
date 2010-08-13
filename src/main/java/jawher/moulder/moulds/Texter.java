@@ -3,6 +3,7 @@ package jawher.moulder.moulds;
 import java.util.ArrayList;
 import java.util.List;
 
+import jawher.moulder.ElementAndData;
 import jawher.moulder.MoulderUtils;
 import jawher.moulder.NodeAndData;
 import jawher.moulder.Moulder;
@@ -23,13 +24,12 @@ public class Texter implements Moulder {
 		this.text = text;
 	}
 
-	public List<NodeAndData<? extends Node>> process(NodeAndData<Element> nd,
-			MoulderUtils f) {
+	public List<NodeAndData> process(ElementAndData nd, MoulderUtils f) {
 		text.bind(nd);
-		List<NodeAndData<? extends Node>> res = new ArrayList<NodeAndData<? extends Node>>();
+		List<NodeAndData> res = new ArrayList<NodeAndData>();
 		String text = this.text.get();
 		nd.node.text(text);
-		res.add(nd);
+		res.add(nd.toNodeAndData());
 		return res;
 	}
 
