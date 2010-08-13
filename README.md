@@ -39,6 +39,54 @@ Please consider using [Github issues tracker](http://github.com/jawher/moulder-j
 Using this library
 ------------------
 
+I've compiled [some simple and elemetary use cases in this gist](http://gist.github.com/522028), and [some more complex and advanced use cases in this gist](http://gist.github.com/522037).
+
+Here's a quick sample of how `moulder` can be used to manipulate html:
+
+Given this markup:
+
+    <html>
+        <body>
+            <h1>[...]</h1>
+        </body>
+    </html>
+
+This moulder based snippet:
+
+    Document doc = Jsoup.parse(HTML);
+    MoulderShop m = new MoulderShop();
+    
+    m.register("h1", repeat(Arrays.asList("Spring", "Summer", "Autumn",
+    		"Winter")),
+    		attr("class", new Values<String>("even", "odd").cycle()),
+    		text(new ElementDataValue<String>()), append("<p>content</p>"));
+    
+    m.process(doc);
+
+
+Will generate the following:
+
+    <html>
+        <head>
+        </head>
+        <body> 
+            <h1 class="even">Spring</h1> 
+            <p>content</p>
+            <h1 class="odd">Summer</h1> 
+            <p>content</p>
+            <h1 class="even">Autumn</h1> 
+            <p>content</p>
+            <h1 class="odd">Winter</h1> 
+            <p>content</p>
+        </body>
+    </html>
+
+Or in plain english:
+
+* For each item in the list of seasons, repeat the h1 element
+* For each generated h1 element, set it's class to even or odd
+* Also set it's text content to the corresponding season
+* And finally, append a paragraph after it
 
 
 License
