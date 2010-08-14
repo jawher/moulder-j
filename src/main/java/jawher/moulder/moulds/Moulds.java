@@ -27,7 +27,7 @@ public class Moulds {
 	public static Prepender prepend(String html) {
 		return new Prepender(html);
 	}
-	
+
 	public static Replacer replace(Value<Iterable<Node>> html) {
 		return new Replacer(html);
 	}
@@ -86,5 +86,9 @@ public class Moulds {
 
 	public static AttrModifier attr(Value<String> attr, Value<String> value) {
 		return new AttrModifier(attr, value);
+	}
+
+	public static NopMoulder nop() {
+		return new NopMoulder();
 	}
 }
