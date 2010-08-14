@@ -1,5 +1,6 @@
 package jawher.moulder.moulds;
 
+import jawher.moulder.Moulder;
 import jawher.moulder.Value;
 import jawher.moulder.values.SimpleValue;
 
@@ -90,5 +91,13 @@ public class Moulds {
 
 	public static NopMoulder nop() {
 		return new NopMoulder();
+	}
+	
+	public static IfMoulder ifm(Value<Boolean> condition, Moulder thenMoulder, Moulder elseMoulder) {
+		return new IfMoulder(condition, thenMoulder, elseMoulder);
+	}
+	
+	public static IfMoulder ifm(boolean condition, Moulder thenMoulder, Moulder elseMoulder) {
+		return new IfMoulder(condition, thenMoulder, elseMoulder);
 	}
 }
