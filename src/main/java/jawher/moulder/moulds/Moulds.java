@@ -27,6 +27,14 @@ public class Moulds {
 	public static Prepender prepend(String html) {
 		return new Prepender(html);
 	}
+	
+	public static Replacer replace(Value<Iterable<Node>> html) {
+		return new Replacer(html);
+	}
+
+	public static Replacer replace(String html) {
+		return new Replacer(html);
+	}
 
 	public static ChildAppender appendToChildren(Value<Iterable<Node>> html) {
 		return new ChildAppender(html);
