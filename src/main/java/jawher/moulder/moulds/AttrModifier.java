@@ -58,7 +58,9 @@ public class AttrModifier implements Moulder {
 
 	public List<NodeAndData> process(ElementAndData nd, MoulderUtils f) {
 		attr.bind(nd);
-		value.bind(nd);
+		if (value != null) {
+			value.bind(nd);
+		}
 		List<NodeAndData> res = new ArrayList<NodeAndData>();
 		String attr = this.attr.get();
 		if (attr != null) {
