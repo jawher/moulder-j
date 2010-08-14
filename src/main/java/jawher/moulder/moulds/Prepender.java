@@ -47,7 +47,7 @@ public class Prepender implements Moulder {
 		List<NodeAndData> res = new ArrayList<NodeAndData>();
 		Iterable<Node> nodes = content.get();
 		for (Node n : nodes) {
-			res.add(new NodeAndData(n));
+			res.add(new NodeAndData(n, nd.data));
 		}
 		res.add(nd.toNodeAndData());
 		return res;

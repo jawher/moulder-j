@@ -48,7 +48,7 @@ public class Appender implements Moulder {
 		res.add(nd.toNodeAndData());
 		Iterable<Node> nodes = content.get();
 		for (Node n : nodes) {
-			res.add(new NodeAndData(n));
+			res.add(new NodeAndData(n, nd.data));
 		}
 		return res;
 	}
