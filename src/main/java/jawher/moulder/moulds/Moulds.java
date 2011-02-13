@@ -109,4 +109,8 @@ public class Moulds {
     public static SubMoulder sub(String selector, List<Moulder> moulders) {
         return new SubMoulder().register(selector, moulders);
     }
+
+    public static Filterer filter(String selector) {
+        return new Filterer(selector);
+    }
 }
