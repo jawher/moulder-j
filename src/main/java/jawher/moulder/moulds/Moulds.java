@@ -4,8 +4,10 @@ import jawher.moulder.Moulder;
 import jawher.moulder.Value;
 import jawher.moulder.values.SimpleValue;
 
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Node;
 
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -112,5 +114,13 @@ public class Moulds {
 
     public static Filterer filter(String selector) {
         return new Filterer(selector);
+    }
+
+    public static Loader load(Document document, String selector) {
+        return new Loader(document, selector);
+    }
+
+    public static Loader load(InputStream stream, String selector) {
+        return new Loader(stream, selector);
     }
 }
