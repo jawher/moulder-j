@@ -2,6 +2,7 @@ package moulder.values;
 
 import moulder.Value;
 
+import java.io.InputStream;
 import java.util.Iterator;
 
 /**
@@ -20,6 +21,22 @@ public class Values {
 
     public static HtmlValue html(Value<String> html) {
         return new HtmlValue(html);
+    }
+
+    public static HtmlLoaderValue load(InputStream stream, String selector) {
+        return new HtmlLoaderValue(stream, selector);
+    }
+
+    public static HtmlLoaderValue load(Value<InputStream> stream, String selector) {
+        return new HtmlLoaderValue(stream, selector);
+    }
+
+    public static HtmlLoaderValue load(InputStream stream, Value<String> selector) {
+        return new HtmlLoaderValue(stream, selector);
+    }
+
+    public static HtmlLoaderValue load(Value<InputStream> stream, Value<String> selector) {
+        return new HtmlLoaderValue(stream, selector);
     }
 
     public static <T> SeqValue<T> seq(Iterator<T> values) {

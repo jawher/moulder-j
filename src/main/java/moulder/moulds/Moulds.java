@@ -1,12 +1,10 @@
 package moulder.moulds;
 
-import moulder.values.SimpleValue;
 import moulder.Moulder;
 import moulder.Value;
-import org.jsoup.nodes.Document;
+import moulder.values.SimpleValue;
 import org.jsoup.nodes.Node;
 
-import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -115,11 +113,4 @@ public class Moulds {
         return new Filterer(selector);
     }
 
-    public static Loader load(Document document, String selector) {
-        return new Loader(document, selector);
-    }
-
-    public static Loader load(InputStream stream, String selector) {
-        return new Loader(stream, selector);
-    }
 }
