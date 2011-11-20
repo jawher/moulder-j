@@ -1,9 +1,6 @@
 package moulder.moulds;
 
-import moulder.ElementAndData;
-import moulder.Moulder;
-import moulder.MoulderUtils;
-import moulder.NodeAndData;
+import moulder.*;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
@@ -60,6 +57,12 @@ public class SubMoulder implements Moulder {
 		cfg.add(new TemplatorConfig(selector, templators));
 		return this;
 	}
+
+    public MoulderChain select(String selector) {
+        List<Moulder> moulders = new ArrayList<Moulder>();
+        register(selector, moulders);
+        return new MoulderChain(moulders);
+    }
 
 	public List<NodeAndData> process(ElementAndData nd, MoulderUtils f) {
 
