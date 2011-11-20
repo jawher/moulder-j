@@ -91,7 +91,7 @@ public class MouldersChainingAndValues {
 
 		m.register("h1", repeat(Arrays.asList("Spring", "Summer", "Autumn",
 				"Winter")),
-				attr("class", new Values<String>("even", "odd").cycle()),
+				attr("class", new SeqValue<String>("even", "odd").cycle()),
 				text(new ElementDataValue<String>()), append(new HtmlValue(
 						new ValueTransformer<String, String>(
 								new ElementDataValue<String>()) {
@@ -132,7 +132,7 @@ public class MouldersChainingAndValues {
 		
 		m.register("h1", repeat(Arrays.asList(new Tag("Java"),
 				new Tag("jQuery"), new Tag("templating"))),
-				attr("class", new Values<String>("even", "odd").cycle()),
+				attr("class", new SeqValue<String>("even", "odd").cycle()),
 				text(new ValueFieldExtractor<String, Tag>(new ElementDataValue<Tag>(),
 						"tag", Tag.class)), append(new HtmlValue(
 						new ToStringValue<Integer>(
