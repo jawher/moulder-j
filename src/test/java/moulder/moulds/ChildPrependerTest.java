@@ -1,7 +1,5 @@
 package moulder.moulds;
 
-import moulder.ElementAndData;
-import moulder.NodeAndData;
 import moulder.Value;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,30 +15,28 @@ import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
 import static org.mockito.Mockito.*;
 
 public class ChildPrependerTest extends BaseMoulderTest {
-	
 
-	@Test
-	public void test() throws Exception {
-		Value<Iterable<Node>> content = mock(Value.class);
-		when(content.get()).thenReturn(parse("<e a='v'>c</e>text"));
 
-		ChildPrepender a = new ChildPrepender(content);
-		Document document = Jsoup
-				.parseBodyFragment("<html><body><outer>test</outer></body></html>");
-		Element element = document.getElementsByTag("outer").first();
+    @Test
+    public void test() throws Exception {
+        Value<Iterable<Node>> content = mock(Value.class);
+        when(content.get()).thenReturn(parse("<e a='v'>c</e>text"));
 
-		ElementAndData nd = new ElementAndData(element, "data");
-		List<NodeAndData> processed = a.process(nd);
+        ChildPrepender a = new ChildPrepender(content);
+        Document document = Jsoup
+                .parseBodyFragment("<html><body><outer>test</outer></body></html>");
+        Element element = document.getElementsByTag("outer").first();
 
-		// verify that bind and get were called, in this order
-		InOrder inOrder = inOrder(content);
-		inOrder.verify(content).bind(nd);
-		inOrder.verify(content).get();
+        List<Node> processed = a.process(element);
 
-		assertXMLEqual(new StringReader(
-				"<body><outer><e a='v'>c</e>texttest</outer></body>"),
-				new StringReader(html(processed)));
-	}
+        // verify that bind and get were called, in this order
+        InOrder inOrder = inOrder(content);
+        inOrder.verify(content).get();
 
-	
+        assertXMLEqual(new StringReader(
+                "<body><outer><e a='v'>c</e>texttest</outer></body>"),
+                new StringReader(html(processed)));
+    }
+
+
 }

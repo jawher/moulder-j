@@ -1,10 +1,10 @@
 package moulder.moulds;
 
-import moulder.ElementAndData;
 import moulder.Moulder;
-import moulder.NodeAndData;
 import moulder.Value;
 import moulder.values.SimpleValue;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 
 import java.util.List;
 
@@ -53,12 +53,11 @@ public class IfMoulder implements Moulder {
 		this.elseMoulder = elseMoulder;
 	}
 
-	public List<NodeAndData> process(ElementAndData nd) {
-		condition.bind(nd);
+    public List<Node> process(Element element) {
 		if (condition.get()) {
-			return thenMoulder.process(nd);
+			return thenMoulder.process(element);
 		} else {
-			return elseMoulder.process(nd);
+			return elseMoulder.process(element);
 		}
 	}
 

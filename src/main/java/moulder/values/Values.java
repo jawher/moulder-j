@@ -11,9 +11,6 @@ import java.util.Iterator;
  * @author jawher
  */
 public class Values {
-    public static <T> ElementDataValue<T> elemData() {
-        return new ElementDataValue<T>();
-    }
 
     public static HtmlValue html(String html) {
         return new HtmlValue(html);

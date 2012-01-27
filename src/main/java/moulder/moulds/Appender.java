@@ -1,10 +1,9 @@
 package moulder.moulds;
 
-import moulder.ElementAndData;
 import moulder.Moulder;
-import moulder.NodeAndData;
 import moulder.Value;
 import moulder.values.HtmlValue;
+import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 
 import java.util.ArrayList;
@@ -40,13 +39,12 @@ public class Appender implements Moulder {
 		this(new HtmlValue(html));
 	}
 
-	public List<NodeAndData> process(ElementAndData nd) {
-		content.bind(nd);
-		List<NodeAndData> res = new ArrayList<NodeAndData>();
-		res.add(nd.toNodeAndData());
+	public List<Node> process(Element element) {
+		List<Node> res = new ArrayList<Node>();
+		res.add(element);
 		Iterable<Node> nodes = content.get();
 		for (Node n : nodes) {
-			res.add(new NodeAndData(n, nd.data));
+			res.add(n);
 		}
 		return res;
 	}

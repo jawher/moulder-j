@@ -1,8 +1,8 @@
 package moulder.moulds;
 
-import moulder.ElementAndData;
 import moulder.Moulder;
-import moulder.NodeAndData;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,8 +16,8 @@ import java.util.List;
  */
 public class NopMoulder implements Moulder {
 
-	public List<NodeAndData> process(ElementAndData nd) {
-		return Arrays.asList(nd.toNodeAndData());
+    public List<Node> process(Element element) {
+		return Arrays.<Node>asList(element);
 	}
 
 }

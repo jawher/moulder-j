@@ -1,11 +1,10 @@
 package moulder.moulds;
 
-import moulder.ElementAndData;
 import moulder.Moulder;
-import moulder.NodeAndData;
 import moulder.Value;
 import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,16 +29,15 @@ public class Repeater<T> implements Moulder {
 	 * @param items
 	 */
 	public Repeater(Value<? extends Iterable<T>> items) {
-		super();
 		this.items = items;
 	}
 
-	public List<NodeAndData> process(ElementAndData nd) {
-		items.bind(nd);
+    public List<Node> process(Element element) {
+        List<Node> res = new ArrayList<Node>();
 		Iterator<T> it = items.get().iterator();
-		List<NodeAndData> res = new ArrayList<NodeAndData>();
 		while (it.hasNext()) {
-			res.add(new NodeAndData(copy(nd.node), it.next()));
+            it.next();
+			res.add(copy(element));
 		}
 		return res;
 	}

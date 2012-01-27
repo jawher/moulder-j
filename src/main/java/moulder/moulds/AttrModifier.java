@@ -1,10 +1,10 @@
 package moulder.moulds;
 
-import moulder.ElementAndData;
 import moulder.Moulder;
-import moulder.NodeAndData;
 import moulder.Value;
 import moulder.values.SimpleValue;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,22 +55,18 @@ public class AttrModifier implements Moulder {
 		this(new SimpleValue<String>(attr), new SimpleValue<String>(value));
 	}
 
-	public List<NodeAndData> process(ElementAndData nd) {
-		attr.bind(nd);
-		if (value != null) {
-			value.bind(nd);
-		}
-		List<NodeAndData> res = new ArrayList<NodeAndData>();
+    public List<Node> process(Element element) {
+		List<Node> res = new ArrayList<Node>();
 		String attr = this.attr.get();
 		if (attr != null) {
 			String value = this.value == null ? null : this.value.get();
 			if (value == null) {
-				nd.node.removeAttr(attr);
+				element.removeAttr(attr);
 			} else {
-				nd.node.attr(attr, value);
+				element.attr(attr, value);
 			}
 		}
-		res.add(nd.toNodeAndData());
+		res.add(element);
 		return res;
 	}
 }

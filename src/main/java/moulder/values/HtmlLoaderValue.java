@@ -1,6 +1,5 @@
 package moulder.values;
 
-import moulder.ElementAndData;
 import moulder.Value;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -56,11 +55,6 @@ public class HtmlLoaderValue implements Value<Iterable<Node>> {
         List<Element> res = document.select(selector.get());
         List<Node> copy = new ArrayList<Node>(res);
         return copy;
-    }
-
-    public void bind(ElementAndData nd) {
-        stream.bind(nd);
-        selector.bind(nd);
     }
 
 }

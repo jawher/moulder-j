@@ -1,5 +1,8 @@
 package moulder;
 
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
+
 import java.util.List;
 
 /**
@@ -14,9 +17,9 @@ public interface Moulder {
      * This is where a moulder can process the input element to generate its
      * result.
      *
-     * @param nd the element and its associated data to process
+     * @param element the element and its associated data to process
      * @return the list of nodes and their associated data that were generated
      *         after processing the input element.
      */
-    List<NodeAndData> process(ElementAndData nd);
+    List<Node> process(Element element);
 }

@@ -31,7 +31,7 @@ public class MoulderShop {
     }
 
     public void process(Document doc) {
-        subMoulder.process(new ElementAndData(doc));
+        subMoulder.process(doc);
     }
 
     public Document process(InputStream stream) {
@@ -42,7 +42,7 @@ public class MoulderShop {
             throw new RuntimeException(e);
         }
 
-        subMoulder.process(new ElementAndData(doc));
+        subMoulder.process(doc);
         return doc;
     }
 

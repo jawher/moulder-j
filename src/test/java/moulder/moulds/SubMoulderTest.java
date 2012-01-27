@@ -1,11 +1,10 @@
 package moulder.moulds;
 
-import moulder.ElementAndData;
 import moulder.Moulder;
-import moulder.NodeAndData;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -26,25 +25,23 @@ public class SubMoulderTest extends BaseMoulderTest {
                 .parseBodyFragment("<html><body><outer a='v'><a>test</a></outer></body></html>");
 
         Element element = document.getElementsByTag("outer").first();
-        ElementAndData nd = new ElementAndData(element, "data");
 
         Element subElement = document.getElementsByTag("a").first();
-        ElementAndData subNd = new ElementAndData(subElement, "data");
 
         Moulder moulder = mock(Moulder.class);
-        ArgumentCaptor<ElementAndData> edc = ArgumentCaptor
-                .forClass(ElementAndData.class);
+        ArgumentCaptor<Element> edc = ArgumentCaptor
+                .forClass(Element.class);
         when(moulder.process(edc.capture()))
                 .thenReturn(
-                        Arrays.asList(new NodeAndData(parseNode("<b>text</b>")), new NodeAndData(parseNode("text"))));
+                        Arrays.asList(parseNode("<b>text</b>"), parseNode("text")));
 
         SubMoulder sm = new SubMoulder();
         sm.register("a", moulder);
 
-        List<NodeAndData> processed = sm.process(nd);
+        List<Node> processed = sm.process(element);
 
         //check that the sub moulder called its registered moulder with the correct params: the child element <a> and "data"
-        assertEquals(subNd, edc.getValue());
+        assertEquals(subElement, edc.getValue());
         System.out.println(html(processed));
         //check that the sub moulder correctly applied its registered moulder result
         assertXMLEqual(new StringReader("<body><outer a='v'><b>text</b>text</outer></body>"), new StringReader(

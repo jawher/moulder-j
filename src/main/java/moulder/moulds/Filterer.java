@@ -1,9 +1,8 @@
 package moulder.moulds;
 
-import moulder.ElementAndData;
 import moulder.Moulder;
-import moulder.NodeAndData;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +28,12 @@ public class Filterer implements Moulder {
     }
 
 
-    public List<NodeAndData> process(ElementAndData nd) {
-        List<Element> kept = nd.node.select(selector);
+    public List<Node> process(Element element) {
+        List<Node> res = new ArrayList<Node>();
+        List<Element> kept = element.select(selector);
 
-        List<NodeAndData> res = new ArrayList<NodeAndData>();
         for (Element e : kept) {
-            res.add(new NodeAndData(e, nd.data));
+            res.add(e);
         }
         return res;
 

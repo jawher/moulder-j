@@ -1,10 +1,9 @@
 package moulder.moulds;
 
-import moulder.ElementAndData;
 import moulder.Moulder;
-import moulder.NodeAndData;
 import moulder.Value;
 import moulder.values.HtmlValue;
+import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 
 import java.util.ArrayList;
@@ -41,9 +40,8 @@ public class ChildPrepender implements Moulder {
 		this(new HtmlValue(html));
 	}
 
-	public List<NodeAndData> process(ElementAndData nd) {
-		content.bind(nd);
-		List<NodeAndData> res = new ArrayList<NodeAndData>();
+    public List<Node> process(Element element) {
+        List<Node> res = new ArrayList<Node>();
 		Iterable<Node> nodes = content.get();
 		List<Node> reversed = new ArrayList<Node>();
 		for (Node n : nodes) {
@@ -51,9 +49,9 @@ public class ChildPrepender implements Moulder {
 		}
 		Collections.reverse(reversed);
 		for (Node n : reversed) {
-			nd.node.prependChild(n);
+			element.prependChild(n);
 		}
-		res.add(nd.toNodeAndData());
+		res.add(element);
 		return res;
 	}
 
