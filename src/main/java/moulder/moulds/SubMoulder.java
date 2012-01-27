@@ -2,12 +2,14 @@ package moulder.moulds;
 
 import moulder.Moulder;
 import moulder.MoulderChain;
+import moulder.moulds.helpers.MouldersApplier;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -65,20 +67,7 @@ public class SubMoulder implements Moulder {
         for (TemplatorConfig c : cfg) {
             Elements elements = element.select(c.selector);
             for (Element e : elements) {
-                List<Node> oes = Arrays.<Node>asList(e);
-                for (Moulder templator : c.templators) {
-                    List<Node> tes = new ArrayList<Node>();
-                    for (Node oe : oes) {
-                        if (oe instanceof Element) {
-                            List<Node> processed = templator.process((Element) oe);
-                            tes.addAll(processed);
-                        } else {
-                            tes.add(oe);
-                        }
-
-                    }
-                    oes = tes;
-                }
+                Collection<Node> oes = MouldersApplier.applyMoulders(c.templators, Arrays.<Node>asList(e));
                 // replace e with oes
                 for (Node oe : oes) {
                     e.before(oe.outerHtml());

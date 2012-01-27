@@ -2,13 +2,13 @@ package moulder.moulds;
 
 import moulder.Moulder;
 import moulder.Value;
+import moulder.moulds.helpers.MouldersApplier;
+import moulder.values.SimpleValue;
 import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * A moulder that repeats its input element
@@ -18,7 +18,7 @@ import java.util.List;
  * @param <T>
  *            the type of the data to be associated with the repeated elements
  */
-public class Repeater<T> implements Moulder {
+public abstract class Repeater<T> implements Moulder {
 	private Value<? extends Iterable<T>> items;
 
 	/**
@@ -32,12 +32,28 @@ public class Repeater<T> implements Moulder {
 		this.items = items;
 	}
 
+    /**
+     * Creates a moulder that for evey item <code>e</code> in the
+     * {@link Iterable} returned by the supplied value, generates a copy of its
+     * input element with e as its associated data
+     *
+     * @param items
+     */
+    public Repeater(Iterable<T> items) {
+        this.items = new SimpleValue<Iterable<T>>(items);
+    }
+    
+    protected abstract Collection<Moulder> mould(T item, int index);
+
     public List<Node> process(Element element) {
         List<Node> res = new ArrayList<Node>();
 		Iterator<T> it = items.get().iterator();
+        int index = 0;
 		while (it.hasNext()) {
-            it.next();
-			res.add(copy(element));
+            T item = it.next();
+            Collection<Moulder> moulds = mould(item, index);
+            res.addAll(MouldersApplier.applyMoulders(moulds, Arrays.<Node>asList(copy(element))));
+            index++;
 		}
 		return res;
 	}

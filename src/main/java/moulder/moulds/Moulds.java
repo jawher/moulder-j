@@ -5,6 +5,9 @@ import moulder.Value;
 import moulder.values.SimpleValue;
 import org.jsoup.nodes.Node;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -61,12 +64,35 @@ public class Moulds {
         return new Texter(text);
     }
 
-    public static <T> Repeater<T> repeat(Iterable<T> items) {
-        return new Repeater<T>(new SimpleValue<Iterable<T>>(items));
+    public static <T> Repeater<T> repeat(Iterable<T> items, final Collection<Moulder> moulds) {
+        return new Repeater<T>(new SimpleValue<Iterable<T>>(items)) {
+            @Override
+            protected Collection<Moulder> mould(T item, int index) {
+                return moulds;
+            }
+        };
     }
 
-    public static <T> Repeater<T> repeat(Value<Iterable<T>> items) {
-        return new Repeater<T>(items);
+    public static <T> Repeater<T> repeat(Value<Iterable<T>> items, final Collection<Moulder> moulds) {
+        return new Repeater<T>(items) {
+            @Override
+            protected Collection<Moulder> mould(T item, int index) {
+                return moulds;
+            }
+        };
+    }
+
+    public static Repeater<Void> repeatN(int n) {
+        List<Void> items = new ArrayList<Void>(n);
+
+        for(int i=0;i<n;items.add(null),i++);
+
+        return new Repeater<Void>(new SimpleValue<Iterable<Void>>(items)) {
+            @Override
+            protected Collection<Moulder> mould(Void item, int index) {
+                return Collections.emptyList();
+            }
+        };
     }
 
     public static Remover remove() {

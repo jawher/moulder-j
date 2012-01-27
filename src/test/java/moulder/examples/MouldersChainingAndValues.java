@@ -1,6 +1,8 @@
 package moulder.examples;
 
+import moulder.Moulder;
 import moulder.MoulderShop;
+import moulder.moulds.Repeater;
 import moulder.values.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -8,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import static moulder.moulds.Moulds.*;
@@ -51,9 +54,12 @@ public class MouldersChainingAndValues {
         MoulderShop m = new MoulderShop();
 
         m.register("h1",
-                repeat(Arrays.asList("Spring", "Summer", "Autumn", "Winter")),
-                attr("class", "title"), text("title's text"),
-                append("<p>content</p>"));
+                new Repeater<String>(Arrays.asList("Spring", "Summer", "Autumn", "winter")) {
+                    @Override
+                    protected Collection<Moulder> mould(String item, int index) {
+                        return Arrays.asList(attr("class", "title"), text(item), append("<p>" + item + "</p>"));
+                    }
+                });
 
         m.process(doc);
 
@@ -92,7 +98,7 @@ public class MouldersChainingAndValues {
 
         List<String> items = Arrays.asList("Spring", "Summer", "Autumn",
                 "Winter");
-        m.register("h1", repeat(items),
+        m.register("h1", repeatN(items.size()),
                 attr("class", new SeqValue<String>("even", "odd").cycle()),
                 text(new SeqValue<String>(items)), append(new HtmlValue(
                 new ValueTransformer<String, String>(
@@ -135,7 +141,7 @@ public class MouldersChainingAndValues {
 
         List<Tag> items = Arrays.asList(new Tag("Java"),
                 new Tag("jQuery"), new Tag("templating"));
-        m.register("h1", repeat(items),
+        m.register("h1", repeatN(items.size()),
                 attr("class", new SeqValue<String>("even", "odd").cycle()),
                 text(new ValueFieldExtractor<String, Tag>(new SeqValue<Tag>(items),
                         "tag", Tag.class)), append(new HtmlValue(

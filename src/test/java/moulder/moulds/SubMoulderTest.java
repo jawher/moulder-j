@@ -42,7 +42,6 @@ public class SubMoulderTest extends BaseMoulderTest {
 
         //check that the sub moulder called its registered moulder with the correct params: the child element <a> and "data"
         assertEquals(subElement, edc.getValue());
-        System.out.println(html(processed));
         //check that the sub moulder correctly applied its registered moulder result
         assertXMLEqual(new StringReader("<body><outer a='v'><b>text</b>text</outer></body>"), new StringReader(
                 html(processed)));

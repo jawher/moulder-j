@@ -245,7 +245,7 @@ public class SimpleCases {
 		Document doc = Jsoup.parse(HTML);
 		MoulderShop m = new MoulderShop();
 
-		m.register("h1", repeat(Arrays.asList(1, 2, 3, 4)));
+		m.register("h1", repeatN(4));
 
 		m.process(doc);
 
