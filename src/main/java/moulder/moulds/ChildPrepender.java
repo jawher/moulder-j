@@ -1,7 +1,10 @@
 package moulder.moulds;
 
+import moulder.ElementAndData;
+import moulder.Moulder;
+import moulder.NodeAndData;
+import moulder.Value;
 import moulder.values.HtmlValue;
-import moulder.*;
 import org.jsoup.nodes.Node;
 
 import java.util.ArrayList;
@@ -38,7 +41,7 @@ public class ChildPrepender implements Moulder {
 		this(new HtmlValue(html));
 	}
 
-	public List<NodeAndData> process(ElementAndData nd, MoulderUtils f) {
+	public List<NodeAndData> process(ElementAndData nd) {
 		content.bind(nd);
 		List<NodeAndData> res = new ArrayList<NodeAndData>();
 		Iterable<Node> nodes = content.get();

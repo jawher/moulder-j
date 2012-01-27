@@ -1,7 +1,10 @@
 package moulder.moulds;
 
+import moulder.ElementAndData;
+import moulder.Moulder;
+import moulder.NodeAndData;
+import moulder.Value;
 import moulder.values.SimpleValue;
-import moulder.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,7 +40,7 @@ public class Remover implements Moulder {
 		this.remove = remove;
 	}
 
-	public List<NodeAndData> process(ElementAndData nd, MoulderUtils f) {
+	public List<NodeAndData> process(ElementAndData nd) {
 		remove.bind(nd);
 		if (remove.get()) {
 			return Collections.EMPTY_LIST;

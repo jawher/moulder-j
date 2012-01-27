@@ -1,23 +1,19 @@
 package moulder.moulds;
 
-import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.io.StringReader;
-import java.util.List;
-
 import moulder.ElementAndData;
-import moulder.MoulderUtils;
 import moulder.NodeAndData;
-
 import moulder.Value;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.junit.Test;
 import org.mockito.InOrder;
+
+import java.io.StringReader;
+import java.util.List;
+
+import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
+import static org.mockito.Mockito.*;
 
 public class RemoverTest extends BaseMoulderTest {
 	
@@ -27,11 +23,10 @@ public class RemoverTest extends BaseMoulderTest {
 		Remover a = new Remover();
 		Document document = Jsoup
 				.parseBodyFragment("<html><body><outer a='v'>test</outer>text</body></html>");
-		MoulderUtils mu = new MoulderUtils(document);
 		Element element = document.getElementsByTag("outer").first();
 
 		ElementAndData nd = new ElementAndData(element, "data");
-		List<NodeAndData> processed = a.process(nd, mu);
+		List<NodeAndData> processed = a.process(nd);
 
 		
 		assertXMLEqual(new StringReader(
@@ -48,11 +43,10 @@ public class RemoverTest extends BaseMoulderTest {
 		Remover a = new Remover(visibility);
 		Document document = Jsoup
 				.parseBodyFragment("<html><body><outer a='v'>test</outer>text</body></html>");
-		MoulderUtils mu = new MoulderUtils(document);
 		Element element = document.getElementsByTag("outer").first();
 
 		ElementAndData nd = new ElementAndData(element, "data");
-		List<NodeAndData> processed = a.process(nd, mu);
+		List<NodeAndData> processed = a.process(nd);
 
 		// verify that bind and get were called, in this order
 		InOrder inOrder = inOrder(visibility);

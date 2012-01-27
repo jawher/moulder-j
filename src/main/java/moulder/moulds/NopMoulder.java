@@ -2,7 +2,6 @@ package moulder.moulds;
 
 import moulder.ElementAndData;
 import moulder.Moulder;
-import moulder.MoulderUtils;
 import moulder.NodeAndData;
 
 import java.util.Arrays;
@@ -17,7 +16,7 @@ import java.util.List;
  */
 public class NopMoulder implements Moulder {
 
-	public List<NodeAndData> process(ElementAndData nd, MoulderUtils f) {
+	public List<NodeAndData> process(ElementAndData nd) {
 		return Arrays.asList(nd.toNodeAndData());
 	}
 

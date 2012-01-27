@@ -1,6 +1,9 @@
 package moulder.moulds;
 
-import moulder.*;
+import moulder.ElementAndData;
+import moulder.Moulder;
+import moulder.MoulderChain;
+import moulder.NodeAndData;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
@@ -49,7 +52,7 @@ public class SubMoulder implements Moulder {
 	 * 
 	 * @param selector
 	 *            to selected the input element's children to be processed
-	 * @param moulders
+	 * @param templators
 	 *            the moulders to apply on the selected children
 	 * @return its self, so that calls to register can be chained
 	 */
@@ -64,7 +67,7 @@ public class SubMoulder implements Moulder {
         return new MoulderChain(moulders);
     }
 
-	public List<NodeAndData> process(ElementAndData nd, MoulderUtils f) {
+	public List<NodeAndData> process(ElementAndData nd) {
 
 		for (TemplatorConfig c : cfg) {
 			Elements elements = nd.node.select(c.selector);
@@ -77,7 +80,7 @@ public class SubMoulder implements Moulder {
 						if (oe.node instanceof Element) {
 							List<NodeAndData> processed = templator.process(
 									new ElementAndData((Element) oe.node,
-											oe.data), f);
+											oe.data));
 							for (NodeAndData processedNode : processed) {
 								tes.add(new NodeAndData(processedNode.node,
 										processedNode.data));

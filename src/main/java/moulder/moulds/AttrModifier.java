@@ -1,7 +1,10 @@
 package moulder.moulds;
 
+import moulder.ElementAndData;
+import moulder.Moulder;
+import moulder.NodeAndData;
+import moulder.Value;
 import moulder.values.SimpleValue;
-import moulder.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +55,7 @@ public class AttrModifier implements Moulder {
 		this(new SimpleValue<String>(attr), new SimpleValue<String>(value));
 	}
 
-	public List<NodeAndData> process(ElementAndData nd, MoulderUtils f) {
+	public List<NodeAndData> process(ElementAndData nd) {
 		attr.bind(nd);
 		if (value != null) {
 			value.bind(nd);

@@ -1,15 +1,14 @@
 package moulder.moulds;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import moulder.NodeAndData;
-
 import org.custommonkey.xmlunit.XMLUnit;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Node;
 import org.junit.BeforeClass;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class BaseMoulderTest {
 	@BeforeClass

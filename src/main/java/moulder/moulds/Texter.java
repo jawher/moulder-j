@@ -1,7 +1,10 @@
 package moulder.moulds;
 
+import moulder.ElementAndData;
+import moulder.Moulder;
+import moulder.NodeAndData;
+import moulder.Value;
 import moulder.values.SimpleValue;
-import moulder.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +38,7 @@ public class Texter implements Moulder {
 		this(new SimpleValue<String>(text));
 	}
 
-	public List<NodeAndData> process(ElementAndData nd, MoulderUtils f) {
+	public List<NodeAndData> process(ElementAndData nd) {
 		text.bind(nd);
 		List<NodeAndData> res = new ArrayList<NodeAndData>();
 		Object t = this.text.get();

@@ -1,20 +1,8 @@
 package moulder.moulds;
 
-import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.io.StringReader;
-import java.util.Arrays;
-import java.util.List;
-
 import moulder.ElementAndData;
 import moulder.Moulder;
-import moulder.MoulderUtils;
 import moulder.NodeAndData;
-
 import moulder.Value;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,6 +10,13 @@ import org.jsoup.nodes.Element;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
+
+import java.io.StringReader;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
+import static org.mockito.Mockito.*;
 
 public class IfMoulderTest extends BaseMoulderTest {
 
@@ -41,8 +36,6 @@ public class IfMoulderTest extends BaseMoulderTest {
 
 		Document document = Jsoup
 				.parseBodyFragment("<html><body><outer a='v'><a>test</a></outer></body></html>");
-		MoulderUtils mu = new MoulderUtils(document);
-
 		Element element = document.getElementsByTag("outer").first();
 		ElementAndData nd = new ElementAndData(element, "data");
 
@@ -50,8 +43,7 @@ public class IfMoulderTest extends BaseMoulderTest {
 		ArgumentCaptor<ElementAndData> ifMoulderCaptor = ArgumentCaptor
 				.forClass(ElementAndData.class);
 		when(
-				thenMoulder.process(ifMoulderCaptor.capture(),
-						any(MoulderUtils.class))).thenReturn(
+				thenMoulder.process(ifMoulderCaptor.capture())).thenReturn(
 				Arrays.asList(new NodeAndData(parseNode("<b>text</b>")),
 						new NodeAndData(parseNode("text"))));
 
@@ -59,14 +51,13 @@ public class IfMoulderTest extends BaseMoulderTest {
 		ArgumentCaptor<ElementAndData> elseMoulderCaptor = ArgumentCaptor
 				.forClass(ElementAndData.class);
 		when(
-				elseMoulder.process(elseMoulderCaptor.capture(),
-						any(MoulderUtils.class))).thenReturn(
+				elseMoulder.process(elseMoulderCaptor.capture())).thenReturn(
 				Arrays.asList(new NodeAndData(parseNode("<c>content</c>")),
 						new NodeAndData(parseNode("text"))));
 
 		IfMoulder a = new IfMoulder(condition, thenMoulder, elseMoulder);
 
-		List<NodeAndData> processed = a.process(nd, mu);
+		List<NodeAndData> processed = a.process(nd);
 
 		// verify that bind and get were called, in this order
 		InOrder inOrder = inOrder(condition);

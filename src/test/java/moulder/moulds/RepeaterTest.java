@@ -1,24 +1,23 @@
 package moulder.moulds;
 
-import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
-import static org.mockito.Mockito.*;
+import moulder.ElementAndData;
+import moulder.NodeAndData;
+import moulder.Value;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.junit.Test;
+import org.mockito.InOrder;
 
 import java.io.StringReader;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import moulder.ElementAndData;
-import moulder.MoulderUtils;
-import moulder.NodeAndData;
-
-import moulder.Value;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.mockito.InOrder;
+import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 public class RepeaterTest extends BaseMoulderTest {
 
@@ -32,11 +31,10 @@ public class RepeaterTest extends BaseMoulderTest {
 		Repeater<String> a = new Repeater<String>(content);
 		Document document = Jsoup
 				.parseBodyFragment("<html><body><outer a='v'>test</outer></body></html>");
-		MoulderUtils mu = new MoulderUtils(document);
 		Element element = document.getElementsByTag("outer").first();
 
 		ElementAndData nd = new ElementAndData(element, "data");
-		List<NodeAndData> processed = a.process(nd, mu);
+		List<NodeAndData> processed = a.process(nd);
 		
 		// verify that bind and get were called, in this order
 		InOrder inOrder = inOrder(content);

@@ -31,9 +31,7 @@ public class MoulderShop {
     }
 
     public void process(Document doc) {
-        MoulderUtils factory = new MoulderUtils(doc);
-
-        subMoulder.process(new ElementAndData(doc), factory);
+        subMoulder.process(new ElementAndData(doc));
     }
 
     public Document process(InputStream stream) {
@@ -43,9 +41,8 @@ public class MoulderShop {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        MoulderUtils factory = new MoulderUtils(doc);
 
-        subMoulder.process(new ElementAndData(doc), factory);
+        subMoulder.process(new ElementAndData(doc));
         return doc;
     }
 
