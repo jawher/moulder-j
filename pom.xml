@@ -9,7 +9,7 @@
 
     <groupId>com.plecting</groupId>
     <artifactId>moulder</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>moulder</name>
@@ -45,7 +45,7 @@
         <connection>scm:git:git@github.com:jawher/moulder-j.git</connection>
         <developerConnection>scm:git:git@github.com:jawher/moulder-j.git</developerConnection>
         <url>https://github.com/jawher/moulder-j.git</url>
-      <tag>moulder-1.0.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <dependencies>
