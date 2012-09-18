@@ -21,7 +21,7 @@ public abstract class ValueTransformer<S, T> implements Value<T> {
      * Transforms the delegate's <code>Value</code> generated value
      *
      * @param s the delegate's <code>Value</code> generated value
-     * @return
+     * @return the transformed value
      */
     protected abstract T transform(S s);
 
