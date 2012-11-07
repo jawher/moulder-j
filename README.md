@@ -1,6 +1,8 @@
 Moulder-j
 =======================
 
+![Build Status](https://travis-ci.org/jawher/moulder-j.png)
+
 A (relatively) tiny jQuery-like HTML templating library written in Java. In a nutshell, here's how to use `moulder`:
 
 1. parse a document
