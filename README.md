@@ -44,12 +44,14 @@ This moulder based snippet:
 Document doc = Jsoup.parse(HTML);
 MoulderShop m = new MoulderShop();
 
+List<String> items = Arrays.asList("summer", "autumn", "winter", "spring");
+
 m.register("h1",
-    repeat(Arrays.asList("Spring", "Summer", "Autumn", "Winter")),
-    attr("class", new Values<String>("even", "odd").cycle()),
-    text(new ElementDataValue<String>()),
-    append("<p>content</p>")
-    );
+        repeat(items.size()),
+        text(seq(items)),
+        attr("class", seq("even", "odd").cycle()),
+        append("<p>content</p>")
+);
 
 m.process(doc);
 ```
@@ -75,7 +77,7 @@ Will generate the following:
 
 Or in plain english:
 
-* For each item in the list of seasons, repeat the h1 element
+* repeat the h1 element as many times as there are items in the list
 * For each generated h1 element, set it's class to even or odd
 * Also set it's text content to the corresponding season
 * And finally, append a paragraph after it
