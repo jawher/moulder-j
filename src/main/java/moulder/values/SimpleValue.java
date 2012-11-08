@@ -9,7 +9,7 @@ import moulder.Value;
  * @author jawher
  */
 public class SimpleValue<T> implements Value<T> {
-    private final T value;
+    private T value;
 
     /**
      * @param value the value to be returned by {@link #get()}
@@ -20,5 +20,9 @@ public class SimpleValue<T> implements Value<T> {
 
     public T get() {
         return value;
+    }
+
+    public void set(T value) {
+        this.value = value;
     }
 }

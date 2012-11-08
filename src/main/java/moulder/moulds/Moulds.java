@@ -2,12 +2,10 @@ package moulder.moulds;
 
 import moulder.Moulder;
 import moulder.Value;
+import moulder.values.SeqValue;
 import moulder.values.SimpleValue;
 import org.jsoup.nodes.Node;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -110,6 +108,13 @@ public class Moulds {
 
     public static Filterer filter(String selector) {
         return new Filterer(selector);
+    }
+
+    public static <T> ForEach<T> forEach(SimpleValue<T> val, SeqValue<T> seq, Moulder... body) {
+        if (body.length == 1)
+            return new ForEach<T>(val, seq, body[0]);
+        else
+            return new ForEach<T>(val, seq, new MultiMoulder(body));
     }
 
 }

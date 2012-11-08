@@ -1,12 +1,14 @@
 package moulder.moulds;
 
-import moulder.Moulder;
-import org.jsoup.nodes.Attribute;
-import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
+import static moulder.moulds.helpers.JSoupHelpers.copy;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import moulder.Moulder;
+
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 
 /**
  * A moulder that repeats its input element
@@ -34,14 +36,4 @@ public class Repeater implements Moulder {
         }
         return res;
     }
-
-    private Element copy(Element e) {
-        Element res = e.ownerDocument().createElement(e.tagName());
-        for (Attribute a : e.attributes()) {
-            res.attr(a.getKey(), a.getValue());
-        }
-        res.html(e.html());
-        return res;
-    }
-
 }
