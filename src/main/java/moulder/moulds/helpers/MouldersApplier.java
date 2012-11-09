@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class MouldersApplier {
-    public static Collection<Node> applyMoulder(Moulder moulder, Collection<Node> nodes) {
+    public static List<Node> applyMoulder(Moulder moulder, List<Node> nodes) {
         List<Node> res = new ArrayList<Node>();
         for(Node node: nodes) {
             if(node instanceof Element) {
@@ -20,11 +20,11 @@ public class MouldersApplier {
         }
         return res;
     }
-    public static Collection<Node> applyMoulders(Collection<Moulder> moulders, Collection<Node> nodes) {
+    public static List<Node> applyMoulders(Collection<Moulder> moulders, List<Node> nodes) {
         if(moulders.isEmpty()) {
             return nodes;
         } else {
-            Collection<Node> workingSet = new ArrayList<Node>(nodes);
+            List<Node> workingSet = new ArrayList<Node>(nodes);
             for(Moulder moulder: moulders) {
                 workingSet = applyMoulder(moulder, workingSet);
             }

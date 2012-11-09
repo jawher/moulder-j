@@ -9,7 +9,6 @@ import moulder.Moulder;
 import moulder.values.SeqValue;
 import moulder.values.SimpleValue;
 
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 
@@ -26,15 +25,12 @@ public class ForEach<T> implements Moulder {
     }
 
     public List<Node> process(Element element) {
-        final Document shell = Document.createShell(element.ownerDocument().baseUri());
         List<Node> res = new ArrayList<Node>();
         T o;
 
         while ((o = seq.get()) != null) {
             val.set(o);
-            final Element copy = copy(element);
-            shell.appendChild(copy);
-            res.addAll(body.process(copy));
+            res.addAll(body.process(copy(element)));
         }
 
         return res;
