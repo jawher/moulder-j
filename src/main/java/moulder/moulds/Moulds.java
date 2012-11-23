@@ -2,12 +2,8 @@ package moulder.moulds;
 
 import moulder.Moulder;
 import moulder.Value;
-import moulder.values.SimpleValue;
 import org.jsoup.nodes.Node;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 /**

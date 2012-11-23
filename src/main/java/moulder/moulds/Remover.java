@@ -16,7 +16,7 @@ import java.util.List;
  * @author jawher
  */
 public class Remover implements Moulder {
-    private Value<Boolean> remove;
+    private final Value<Boolean> remove;
 
     /**
      * Creates a remover that removes its input element from the resulting
@@ -40,7 +40,7 @@ public class Remover implements Moulder {
 
     public List<Node> process(Element element) {
         if (remove.get()) {
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         } else {
             List<Node> res = new ArrayList<Node>();
             res.add(element);
