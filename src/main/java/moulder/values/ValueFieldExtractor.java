@@ -36,6 +36,7 @@ public class ValueFieldExtractor<T, S> extends ValueTransformer<S, T> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected T transform(S s) {
         try {

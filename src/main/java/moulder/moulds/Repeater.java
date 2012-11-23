@@ -1,7 +1,8 @@
 package moulder.moulds;
 
 import moulder.Moulder;
-import org.jsoup.nodes.Attribute;
+import moulder.moulds.helpers.JsoupHelper;
+
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 
@@ -30,17 +31,8 @@ public class Repeater implements Moulder {
     public List<Node> process(Element element) {
         List<Node> res = new ArrayList<Node>();
         for (int index = 0; index < count; index++) {
-            res.add(copy(element));
+            res.add(JsoupHelper.copy(element));
         }
-        return res;
-    }
-
-    private Element copy(Element e) {
-        Element res = e.ownerDocument().createElement(e.tagName());
-        for (Attribute a : e.attributes()) {
-            res.attr(a.getKey(), a.getValue());
-        }
-        res.html(e.html());
         return res;
     }
 

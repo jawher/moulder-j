@@ -1,16 +1,21 @@
 package moulder.moulds;
 
-import moulder.Moulder;
-import moulder.MoulderChain;
-import moulder.moulds.helpers.MouldersApplier;
-import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
-import org.jsoup.select.Elements;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+
+import moulder.Moulder;
+import moulder.MoulderChain;
+import moulder.Registry;
+import moulder.Registry.TemplatorConfig;
+import moulder.moulds.helpers.JsoupHelper;
+import moulder.moulds.helpers.MouldersApplier;
+
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
+import org.jsoup.select.Elements;
 
 /**
  * A moulder that can be configured to select children of its input element an
@@ -19,18 +24,8 @@ import java.util.List;
  * @author jawher
  */
 public class SubMoulder implements Moulder {
-    private static final class TemplatorConfig {
-        private String selector;
-        private List<Moulder> templators;
 
-        public TemplatorConfig(String selector, List<Moulder> templators) {
-            super();
-            this.selector = selector;
-            this.templators = templators;
-        }
-    }
-
-    private List<TemplatorConfig> cfg = new ArrayList<TemplatorConfig>();
+    private final Registry registry = new Registry();
 
     /**
      * Registers a number of moulders to be applied to its input element's
@@ -53,7 +48,7 @@ public class SubMoulder implements Moulder {
      * @return its self, so that calls to register can be chained
      */
     public SubMoulder register(String selector, List<Moulder> templators) {
-        cfg.add(new TemplatorConfig(selector, templators));
+        registry.register(selector, templators);
         return this;
     }
 
@@ -64,8 +59,12 @@ public class SubMoulder implements Moulder {
     }
 
     public List<Node> process(Element element) {
-        for (TemplatorConfig c : cfg) {
-            Elements elements = element.select(c.selector);
+        final Document doc = new Document(element.baseUri());
+        final Element copy = JsoupHelper.copy(element);
+        doc.appendChild(copy);
+
+        for (TemplatorConfig c : registry.getConfig()) {
+            Elements elements = copy.select(c.selector);
             for (Element e : elements) {
                 Collection<Node> oes = MouldersApplier.applyMoulders(c.templators, Arrays.<Node>asList(e));
                 // replace e with oes
@@ -77,9 +76,7 @@ public class SubMoulder implements Moulder {
             }
         }
 
-        List<Node> res = new ArrayList<Node>();
-        res.add(element);
-        return res;
+        return doc.childNodes();
     }
 
 }
