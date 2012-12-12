@@ -118,4 +118,20 @@ public class Moulds {
     public static <T> ForEach<T> forEach(SimpleBox<T> box, SeqValue<T> seq, List<Moulder> body) {
         return new ForEach<T>(box, seq, body);
     }
+
+    public static AddCssClassMoulder addCssClass(String cssClass) {
+        return new AddCssClassMoulder(cssClass);
+    }
+
+    public static AddCssClassMoulder addCssClass(Value<String> value) {
+        return new AddCssClassMoulder(value);
+    }
+
+    public static RemoveCssClassMoulder removeCssClass(String cssClass) {
+        return new RemoveCssClassMoulder(cssClass);
+    }
+
+    public static RemoveCssClassMoulder removeCssClass(Value<String> value) {
+        return new RemoveCssClassMoulder(value);
+    }
 }
