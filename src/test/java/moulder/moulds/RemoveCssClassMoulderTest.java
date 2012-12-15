@@ -52,7 +52,6 @@ public class RemoveCssClassMoulderTest extends BaseMoulderTest {
         Moulder moulder = new RemoveCssClassMoulder(cssClass);
         List<Node> processed = moulder.process(element);
 
-        // check for correct repetition of html
         assertXMLEqual(new StringReader("<body>" + expected + "</body>"),
                 new StringReader(html(processed)));
     }
